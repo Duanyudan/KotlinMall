@@ -5,17 +5,15 @@ import com.example.baselibrary.presenter.BasePresenter
 import com.example.baselibrary.rx.BaseSubscriber
 import com.example.usercenter.service.impl.UserServiceImpl
 import com.example.usercenter.view.RegisterView
-import rx.Observable
-import rx.Subscriber
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import javax.inject.Inject
 
 /**
  * Created by Administrator on 2018/3/7.
  */
-class RegisterPresenter : BasePresenter<RegisterView>() {
+class RegisterPresenter @Inject constructor(): BasePresenter<RegisterView>() {
+    @Inject
+    lateinit var userService:UserServiceImpl
     fun register(mobile: String, verifyCode: String,pwd: String) {
-        val userService=UserServiceImpl()
         userService.register(mobile,verifyCode,pwd)
                 .excute(object :BaseSubscriber<Boolean>(){
                     override fun onNext(t: Boolean) {

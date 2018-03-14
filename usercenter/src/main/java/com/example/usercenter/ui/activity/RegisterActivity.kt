@@ -17,10 +17,10 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        mPresenter = RegisterPresenter()
+//        mPresenter = RegisterPresenter()
         mPresenter.mView = this
-        mRegisterBtn.setOnClickListener{
-            mPresenter.register("","","")
+        mRegisterBtn.setOnClickListener {
+            mPresenter.register(mMobileEt.text.toString(), mVerifyCodeEt.text.toString(), mPwdEt.text.toString())
         }
 
     }

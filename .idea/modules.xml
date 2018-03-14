@@ -3,10 +3,15 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/KotlinMall.iml" filepath="$PROJECT_DIR$/KotlinMall.iml" />
+      <module fileurl="file://D:\kotlinMall\KotlinMall\KotlinMall.iml" filepath="D:\kotlinMall\KotlinMall\KotlinMall.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\kotlinMall\KotlinMall\app\app.iml" filepath="D:\kotlinMall\KotlinMall\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/baselibrary/baselibrary.iml" filepath="$PROJECT_DIR$/baselibrary/baselibrary.iml" />
+      <module fileurl="file://D:\kotlinMall\KotlinMall\baselibrary\baselibrary.iml" filepath="D:\kotlinMall\KotlinMall\baselibrary\baselibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/provider/provider.iml" filepath="$PROJECT_DIR$/provider/provider.iml" />
+      <module fileurl="file://D:\kotlinMall\KotlinMall\provider\provider.iml" filepath="D:\kotlinMall\KotlinMall\provider\provider.iml" />
       <module fileurl="file://$PROJECT_DIR$/usercenter/usercenter.iml" filepath="$PROJECT_DIR$/usercenter/usercenter.iml" />
+      <module fileurl="file://D:\kotlinMall\KotlinMall\usercenter\usercenter.iml" filepath="D:\kotlinMall\KotlinMall\usercenter\usercenter.iml" />
     </modules>
   </component>
 </project>
