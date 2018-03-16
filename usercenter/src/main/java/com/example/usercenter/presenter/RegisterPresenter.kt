@@ -13,9 +13,10 @@ import javax.inject.Inject
 class RegisterPresenter @Inject constructor(): BasePresenter<RegisterView>() {
     @Inject
     lateinit var userService:UserServiceImpl
+
     fun register(mobile: String, verifyCode: String,pwd: String) {
         userService.register(mobile,verifyCode,pwd)
-                .excute(object :BaseSubscriber<Boolean>(){
+                .excute(object :BaseSubscriber<Boolean>(mView){
                     override fun onNext(t: Boolean) {
                         if (t)
                         mView.onResult("注册成功")

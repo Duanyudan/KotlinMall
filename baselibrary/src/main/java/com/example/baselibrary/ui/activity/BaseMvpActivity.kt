@@ -8,6 +8,7 @@ import com.example.baselibrary.module.ActivityModule
 import com.example.baselibrary.module.LifecycleProvidersModule
 import com.example.baselibrary.presenter.BasePresenter
 import com.example.baselibrary.presenter.view.BaseView
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 /**
@@ -17,7 +18,8 @@ open abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), Base
     override fun hideLoading() {
     }
 
-    override fun onError() {
+    override fun onError(msg:String) {
+        toast(msg)
     }
 
     override fun showLoading() {
