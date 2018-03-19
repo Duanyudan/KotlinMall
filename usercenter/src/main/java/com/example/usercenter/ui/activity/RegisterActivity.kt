@@ -28,8 +28,9 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView, Vie
     注册回调
      */
     override fun onResult(t: String) {
-        toast(t)
+        startActivity<LoginActivity>()
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

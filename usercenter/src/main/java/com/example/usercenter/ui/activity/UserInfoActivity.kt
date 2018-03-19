@@ -1,9 +1,12 @@
 package com.example.usercenter.ui.activity
 
+import android.Manifest
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import com.bigkoo.alertview.AlertView
 import com.bigkoo.alertview.OnItemClickListener
 import com.example.baselibrary.common.BaseConstant
@@ -28,6 +31,8 @@ import com.qiniu.android.storage.UpCompletionHandler
 import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.activity_user_info.*
 import org.json.JSONObject
+import pub.devrel.easypermissions.AfterPermissionGranted
+import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
 
 class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(),
@@ -61,7 +66,7 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(),
         setContentView(R.layout.activity_user_info)
         initView()
         initData()
-        mTakePhoto = TakePhotoImpl(this, this)
+        requestPermission()
     }
 
     private fun initData() {
@@ -70,14 +75,16 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(),
         mUserGender = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_GENDER)
         mUserSign = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_SIGN)
         mUserMobile = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_MOBILE)
-        mRemoteFile=mUserIcon
+        mRemoteFile = mUserIcon
         if (mUserIcon != "") {
             GlideUtils.loadUrlImage(this, mUserIcon!!, mUserIconIv)
         }
         mUserNameEt.setText(mUserName)
         if (mUserGender == "0") {
             mGenderMaleRb.isChecked = true
-        } else {mGenderFemaleRb.isChecked = true}
+        } else {
+            mGenderFemaleRb.isChecked = true
+        }
         mUserSignEt.setText(mUserSign)
         mUserMobileTv.setText(mUserMobile)
     }
@@ -86,12 +93,35 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(),
         mUserIconIv.onClick {
             showAlertView()
         }
-        mHeaderBar.getRightView().onClick{
+        mHeaderBar.getRightView().onClick {
             mPresenter.editUserInfo(mRemoteFile!!,
-                    mUserNameEt.text?.toString()?:"",
-                    if (mGenderMaleRb.isChecked )"0" else "1",
-                    mUserNameEt.text?.toString()?:""
-                    )
+                    mUserNameEt.text?.toString() ?: "",
+                    if (mGenderMaleRb.isChecked) "0" else "1",
+                    mUserNameEt.text?.toString() ?: ""
+            )
+        }
+    }
+
+    @AfterPermissionGranted(101)
+    private fun requestPermission() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            //打电话的权限
+            val mPermissionList = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+            if (EasyPermissions.hasPermissions(baseContext, mPermissionList[0], mPermissionList[1])) {
+                //已经同意过
+                mTakePhoto = TakePhotoImpl(this, this)
+            } else {
+                //未同意过,或者说是拒绝了，再次申请权限
+                EasyPermissions.requestPermissions(
+                        this@UserInfoActivity,  //上下文
+                        "需要访问内存和照相机的权限", //提示文言
+                        101, //请求码
+                        mPermissionList[0], mPermissionList[1] //权限列表
+                )
+            }
+        } else {
+            //6.0以下，不需要授权
+            mTakePhoto = TakePhotoImpl(this, this)
         }
     }
 
@@ -116,6 +146,7 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(),
     }
 
     override fun takeFail(result: TResult?, msg: String?) {
+        Log.d("UserInfoActivity", msg?.toString())
     }
 
     override fun takeSuccess(result: TResult?) {
