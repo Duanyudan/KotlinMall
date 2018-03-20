@@ -89,6 +89,9 @@ dependencies {
     //BadgeView
     compile 'q.rorbin:badgeview:1.1.2'
     compile 'pub.devrel:easypermissions:0.3.0'
+    compile 'com.android.support:cardview-v7:23.2.0'
+    // Anko Commons
+    compile "org.jetbrains.anko:anko-commons:$anko_version"
 }
 repositories {
     mavenCentral()
