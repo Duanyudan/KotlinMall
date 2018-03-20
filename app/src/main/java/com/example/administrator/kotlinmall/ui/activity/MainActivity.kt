@@ -8,13 +8,14 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.example.administrator.kotlinmall.R
 import com.example.administrator.kotlinmall.ui.fragment.HomeFragment
 import com.example.administrator.kotlinmall.ui.fragment.MeFragment
+import com.example.ui.fragment.CategoryFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private val mStack = Stack<Fragment>()
     private val mHomeFragment by lazy { HomeFragment() }
-    private val mCategoryFragment by lazy { HomeFragment() }
+    private val mCategoryFragment by lazy { CategoryFragment() }
     private val mCartFragment by lazy { HomeFragment() }
     private val mMsgFragment by lazy { HomeFragment() }
     private val mMeFragment by lazy { MeFragment() }
