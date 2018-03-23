@@ -1,9 +1,8 @@
 package com.example.administrator.kotlinmall.ui.activity
 
-import android.app.FragmentManager
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.example.administrator.kotlinmall.R
 import com.example.administrator.kotlinmall.ui.fragment.HomeFragment

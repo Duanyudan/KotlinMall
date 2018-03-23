@@ -3,7 +3,7 @@ package com.example.common
 /**
  * Created by user on 2018/3/20.
  */
-class GoodsConstance {
+class GoodsConstant {
     companion object {
         //搜索历史 本地存储
         const val SP_SEARCH_HISTORY = "search_history"

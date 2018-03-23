@@ -1,2 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.goodscenter" />
+    package="com.example.goodscenter">
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        >
+   <activity android:name="com.example.ui.activity.GoodsActivity"/>
+    </application>
+</manifest>
