@@ -44,16 +44,4 @@ class GoodsPresenter @Inject constructor() : BasePresenter<GoodsView>() {
                 }, lifecycleProvider)
     }
 
-    fun getGoodsDetail(goodsId: Int) {
-        if (!checkNetWork()) {
-            return
-        }
-        mView.showLoading()
-        goodsService.getGoodsDetail(goodsId)
-                .excute(object : BaseSubscriber<MutableList<Goods>>(mView) {
-                    override fun onNext(t: MutableList<Goods>) {
-                        mView.onGetGoodsDetail(t)
-                    }
-                }, lifecycleProvider)
-    }
 }

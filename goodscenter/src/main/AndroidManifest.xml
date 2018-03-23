@@ -7,5 +7,6 @@
         android:supportsRtl="true"
         >
    <activity android:name="com.example.ui.activity.GoodsActivity"/>
+        <activity android:name="com.example.ui.activity.GoodsDetailActivity"/>
     </application>
 </manifest>

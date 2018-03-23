@@ -6,6 +6,7 @@ import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout
 import com.example.baselibrary.ext.startLoading
 import com.example.baselibrary.ui.activity.BaseMvpActivity
+import com.example.common.GoodsConstant
 import com.example.common.GoodsConstant.Companion.KEY_CATEGORY_ID
 import com.example.common.GoodsConstant.Companion.KEY_GOODS_KEYWORD
 import com.example.common.GoodsConstant.Companion.KEY_SEARCH_GOODS_TYPE
@@ -16,8 +17,10 @@ import com.example.injection.module.GoodsModule
 import com.example.presenter.GoodsPresenter
 import com.example.view.GoodsView
 import com.kennyc.view.MultiStateView
+import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.goods.ui.adapter.GoodsAdapter
 import kotlinx.android.synthetic.main.activity_goods.*
+import org.jetbrains.anko.startActivity
 
 
 /**
@@ -59,6 +62,13 @@ class GoodsActivity : BaseMvpActivity<GoodsPresenter>(), GoodsView, BGARefreshLa
         mGoodsRv.layoutManager = GridLayoutManager(this, 2)
         mAdapter = GoodsAdapter(this)
         mGoodsRv.adapter = mAdapter
+        mAdapter.setOnItemClickListener(object :
+                BaseRecyclerViewAdapter.OnItemClickListener<Goods>{
+            override fun onItemClick(item: Goods, position: Int) {
+                startActivity<GoodsDetailActivity>(GoodsConstant.KEY_GOODS_ID to item.id)
+            }
+
+        })
     }
 
     override fun onBGARefreshLayoutBeginLoadingMore(refreshLayout: BGARefreshLayout?): Boolean {
@@ -94,9 +104,6 @@ class GoodsActivity : BaseMvpActivity<GoodsPresenter>(), GoodsView, BGARefreshLa
         } else {
             mMultiStateView.viewState = MultiStateView.VIEW_STATE_EMPTY
         }
-    }
-
-    override fun onGetGoodsDetail(result: MutableList<Goods>?) {
     }
 
     override fun injectComponent() {

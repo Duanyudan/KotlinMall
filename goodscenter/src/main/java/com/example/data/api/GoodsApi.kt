@@ -27,5 +27,5 @@ interface GoodsApi {
      */
     @POST("goods/getGoodsDetail")
     fun getGoodsDetail(@Body req: GetGoodsDetailReq):
-            Observable<BaseResp<MutableList<Goods>>>
+            Observable<BaseResp<Goods>>
 }

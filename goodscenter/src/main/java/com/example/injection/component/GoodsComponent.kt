@@ -4,6 +4,8 @@ import com.example.baselibrary.component.ActivityComponent
 import com.example.baselibrary.injection.PerComponentScope
 import com.example.injection.module.GoodsModule
 import com.example.ui.activity.GoodsActivity
+import com.example.ui.fragment.GoodsDetailTabOneFragment
+import com.example.ui.fragment.GoodsDetailTabTwoFragment
 import dagger.Component
 
 /**
@@ -14,4 +16,6 @@ import dagger.Component
         modules = arrayOf(GoodsModule::class))
 interface GoodsComponent {
     fun inject(activity: GoodsActivity)
+    fun inject(fragment: GoodsDetailTabOneFragment)
+    fun inject(fragment: GoodsDetailTabTwoFragment)
 }

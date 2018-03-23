@@ -26,7 +26,7 @@ class GoodsServiceImpl @Inject constructor() : GoodsService {
                 .convert()
     }
 
-    override fun getGoodsDetail(goodsId: Int): Observable<MutableList<Goods>> {
+    override fun getGoodsDetail(goodsId: Int): Observable<Goods> {
         return RetrofitFactory.instance.create(GoodsApi::class.java)
                 .getGoodsDetail(GetGoodsDetailReq(goodsId))
                 .convert()
