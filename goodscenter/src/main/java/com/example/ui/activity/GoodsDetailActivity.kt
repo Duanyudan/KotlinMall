@@ -2,6 +2,7 @@ package com.example.ui.activity
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
+import android.view.View
 import com.example.baselibrary.ui.activity.BaseActivity
 import com.example.goodscenter.R
 import com.example.ui.adapter.GoodsDetailVpAdapter
@@ -22,5 +23,9 @@ class GoodsDetailActivity : BaseActivity() {
         mGoodsDetailTab.tabMode=TabLayout.MODE_FIXED
         mGoodsDetailVp.adapter=GoodsDetailVpAdapter(supportFragmentManager,this)
         mGoodsDetailTab.setupWithViewPager(mGoodsDetailVp)
+    }
+
+    fun getRootView(): View {
+        return mRootView
     }
 }

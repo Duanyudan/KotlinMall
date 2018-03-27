@@ -2,8 +2,12 @@ package com.example.baselibrary.ui.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
+import android.widget.FrameLayout
+import com.example.baselibrary.R
 import com.example.baselibrary.common.AppManager
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
+import org.jetbrains.anko.find
 
 /**
  * Created by Administrator on 2018/3/7.
@@ -18,4 +22,10 @@ open class BaseActivity : RxAppCompatActivity() {
         super.onDestroy()
         AppManager.instance.finishActivity(this)
     }
+
+    val contentView: View
+        get() {
+            val content = find<FrameLayout>(android.R.id.content)
+            return content.getChildAt(0)
+        }
 }
