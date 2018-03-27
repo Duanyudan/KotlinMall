@@ -76,7 +76,6 @@ class GoodsSkuPopView(context: Activity) : PopupWindow(context), View.OnClickLis
                         Bus.send(SkuChangedEvent())
                     }
                 }
-
         )
 
         mRootView.mAddCartBtn.onClick {

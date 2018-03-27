@@ -3,11 +3,18 @@ package com.example.administrator.kotlinmall.ui.activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.view.Gravity
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
+import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
 import com.example.administrator.kotlinmall.R
 import com.example.administrator.kotlinmall.ui.fragment.HomeFragment
 import com.example.administrator.kotlinmall.ui.fragment.MeFragment
+import com.example.baselibrary.utils.AppPrefsUtils
+import com.example.common.GoodsConstant
 import com.example.ui.fragment.CategoryFragment
+import com.kotlin.goods.event.UpdateCartSizeEvent
+import kotlinx.android.synthetic.main.activity_goods_detail.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -25,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         initFragment()
         initBottomNav()
         changeFragment(0)
+        initOvserve()
+        loadCartSize()
     }
 
     private fun initFragment() {
@@ -66,10 +75,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun changeFragment(position: Int) {
         val manager = supportFragmentManager.beginTransaction()
-        for (fragment in mStack){
+        for (fragment in mStack) {
             manager.hide(fragment)
         }
         manager.show(mStack[position])
         manager.commit()
+    }
+
+    private fun loadCartSize() {
+        mBottomNavBar.checkCartBadge(AppPrefsUtils.getInt(GoodsConstant.SP_CART_SIZE))
+    }
+
+    private fun initOvserve() {
+        Bus.observe<UpdateCartSizeEvent>()
+                .subscribe { loadCartSize() }
+                .registerInBus(this)
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Bus.unregister(this)
     }
 }

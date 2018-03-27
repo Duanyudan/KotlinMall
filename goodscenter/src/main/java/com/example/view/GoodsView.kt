@@ -9,4 +9,5 @@ import com.example.data.protocol.Goods
  */
 interface GoodsView : BaseView {
     fun onGetGoodsList(result: MutableList<Goods>?)
+
 }

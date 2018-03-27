@@ -8,4 +8,6 @@ import com.example.data.protocol.Goods
  */
 interface GoodsDetailView : BaseView {
     fun onGetGoodsDetail(result: Goods)
+
+    fun onAddCartResult(result:Int)
 }
