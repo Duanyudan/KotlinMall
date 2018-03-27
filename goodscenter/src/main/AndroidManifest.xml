@@ -11,5 +11,6 @@
         <activity android:name="com.example.ui.activity.GoodsDetailActivity"
             android:theme="@style/AppTheme.Black"
             />
+        <activity android:name="com.example.ui.activity.CartActivity"/>
     </application>
 </manifest>
