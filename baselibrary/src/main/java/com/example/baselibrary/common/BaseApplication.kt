@@ -2,6 +2,7 @@ package com.example.baselibrary.common
 
 import android.app.Application
 import android.content.Context
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.baselibrary.component.AppComponent
 import com.example.baselibrary.component.DaggerAppComponent
 import com.example.baselibrary.module.AppModule
@@ -23,6 +24,13 @@ open class BaseApplication : Application() {
 
         context = this
 
+        initArouter()
+    }
+
+    private fun initArouter() {
+        ARouter.openLog()
+        ARouter.openDebug()//开启调试模式，线上需要关闭，否则有安全风险
+        ARouter.init(this)
     }
 
     /*
