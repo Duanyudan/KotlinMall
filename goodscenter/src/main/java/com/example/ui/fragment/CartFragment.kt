@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.alibaba.android.arouter.launcher.ARouter
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.example.baselibrary.ext.onClick
@@ -21,6 +22,8 @@ import com.example.goodscenter.R
 import com.example.injection.component.DaggerCartComponent
 import com.example.injection.module.CartModule
 import com.example.presenter.CartListPresenter
+import com.example.provider.common.ProviderConstant
+import com.example.provider.router.RouterPath
 import com.example.view.CartListView
 import com.kennyc.view.MultiStateView
 import com.kotlin.goods.event.CartAllCheckedEvent
@@ -156,7 +159,9 @@ class CartFragment : BaseMvpFragment<CartListPresenter>(), CartListView {
         refreshEditStatus()
     }
     override fun onSubmint(result: Int) {
-
+ARouter.getInstance().build(RouterPath.OrderCenter.PATH_ORDER_CONFIRM)
+        .withInt(ProviderConstant.KEY_ORDER_ID,result)
+        .navigation()
     }
     override fun injectComponent() {
         DaggerCartComponent.builder()
