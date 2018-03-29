@@ -113,7 +113,7 @@ class CartFragment : BaseMvpFragment<CartListPresenter>(), CartListView {
             if (cartGoodsList.size == 0) {
                 toast("请选择要结算的数据")
             } else {
-                mPresenter.submitCart(SubmitCartReq(cartGoodsList,mTotalPrice))
+                mPresenter.submitCart(SubmitCartReq(cartGoodsList, mTotalPrice))
             }
         }
     }
@@ -143,7 +143,7 @@ class CartFragment : BaseMvpFragment<CartListPresenter>(), CartListView {
         if (result != null && result.size > 0) {
             mAdapter.setData(result)
             mHeaderBar.getRightView().setVisible(true)
-            mAllCheckedCb.isChecked=false
+            mAllCheckedCb.isChecked = false
             mMultiStateView.viewState = MultiStateView.VIEW_STATE_CONTENT
         } else {
             mHeaderBar.getRightView().setVisible(false)
@@ -158,11 +158,13 @@ class CartFragment : BaseMvpFragment<CartListPresenter>(), CartListView {
         loadData()
         refreshEditStatus()
     }
+
     override fun onSubmint(result: Int) {
-ARouter.getInstance().build(RouterPath.OrderCenter.PATH_ORDER_CONFIRM)
-        .withInt(ProviderConstant.KEY_ORDER_ID,result)
-        .navigation()
+        ARouter.getInstance().build(RouterPath.OrderCenter.PATH_ORDER_CONFIRM)
+                .withInt(ProviderConstant.KEY_ORDER_ID, result)
+                .navigation()
     }
+
     override fun injectComponent() {
         DaggerCartComponent.builder()
                 .activityComponent(acitivtyComponent).cartModule(CartModule())
@@ -175,7 +177,7 @@ ARouter.getInstance().build(RouterPath.OrderCenter.PATH_ORDER_CONFIRM)
         Bus.unregister(this)
     }
 
-    fun setBackVisible(isVisible: Boolean){
+    fun setBackVisible(isVisible: Boolean) {
         mHeaderBar.getLeftView().setVisible(isVisible)
     }
 }

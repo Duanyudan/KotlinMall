@@ -6,8 +6,8 @@ import com.kotlin.order.data.protocol.Order
 /**
  * Created by Administrator on 2018/3/7.
  */
-interface OrderComfirmView : BaseView {
-    fun onGetOrderByIdResult(result: Order)
-    fun onSubmitResult(result: String)
+interface EditShipAddressView : BaseView {
+    fun onAddAddressResult(result: String)
+    fun onEditAddressResult(result: String)
 
 }

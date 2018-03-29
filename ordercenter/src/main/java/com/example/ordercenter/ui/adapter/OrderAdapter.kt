@@ -118,8 +118,6 @@ class OrderAdapter(context: Context) : BaseRecyclerViewAdapter<Order, OrderAdapt
             }
         }
 
-
-
     }
 
     /*

@@ -3,7 +3,8 @@ package com.example.ordercenter.presenter
 import com.example.baselibrary.ext.excute
 import com.example.baselibrary.presenter.BasePresenter
 import com.example.baselibrary.rx.BaseSubscriber
-import com.example.ordercenter.presenter.view.OrderComfirmView
+import com.example.ordercenter.presenter.view.OrderDetailView
+import com.example.ordercenter.presenter.view.OrderListView
 import com.example.ordercenter.service.OrderServiceImpl
 import com.kotlin.order.data.protocol.Order
 import javax.inject.Inject
@@ -11,11 +12,11 @@ import javax.inject.Inject
 /**
  * Created by Administrator on 2018/3/7.
  */
-class OrderComfirmPresenter @Inject constructor() : BasePresenter<OrderComfirmView>() {
+class OrderDetailPresenter @Inject constructor() : BasePresenter<OrderDetailView>() {
     @Inject
     lateinit var orderService: OrderServiceImpl
 
-    fun getOrderById(orderId: Int) {
+    fun getOrderDetail(orderId: Int) {
         if (!checkNetWork()) {
             return
         }
@@ -23,21 +24,9 @@ class OrderComfirmPresenter @Inject constructor() : BasePresenter<OrderComfirmVi
         orderService.getOrderById(orderId)
                 .excute(object : BaseSubscriber<Order>(mView) {
                     override fun onNext(t: Order) {
-                        mView.onGetOrderByIdResult(t)
+                        mView.onGetOrderDetailResult(t)
                     }
                 }, lifecycleProvider)
     }
 
-    fun submitOrder(order: Order) {
-        if (!checkNetWork()) {
-            return
-        }
-        mView.showLoading()
-        orderService.submitOrder(order)
-                .excute(object : BaseSubscriber<String>(mView) {
-                    override fun onNext(t: String) {
-                        mView.onSubmitResult(t)
-                    }
-                }, lifecycleProvider)
-    }
 }

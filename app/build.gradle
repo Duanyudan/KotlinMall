@@ -32,6 +32,7 @@ dependencies {
     implementation project(':baselibrary')
     implementation project(':messagecenter')
     implementation project(':goodscenter')
+    implementation project(':ordercenter')
     if (isUserModule.toBoolean()) {
         implementation project(':usercenter')
     }

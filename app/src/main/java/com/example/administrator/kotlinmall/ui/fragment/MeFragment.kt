@@ -14,11 +14,16 @@ import com.example.baselibrary.ext.onClick
 import com.example.baselibrary.ui.fragment.BaseFragment
 import com.example.baselibrary.utils.AppPrefsUtils
 import com.example.baselibrary.widgets.BannerImageLoader
+import com.example.ordercenter.ui.activity.OrderActivity
+import com.example.ordercenter.ui.activity.ShipAddressActivity
 import com.example.provider.common.ProviderConstant
+import com.example.provider.common.afterLogin
 import com.example.provider.common.isLogined
 import com.example.usercenter.ui.activity.UserInfoActivity
 import com.kotlin.mall.common.*
 import com.kotlin.mall.ui.adapter.TopicAdapter
+import com.kotlin.order.common.OrderConstant
+import com.kotlin.order.common.OrderStatus
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import kotlinx.android.synthetic.main.fragment_me.*
@@ -43,19 +48,41 @@ class MeFragment : BaseFragment(), View.OnClickListener {
     private fun initView() {
 
         mUserIconIv.onClick(this)
-        mSettingTv.onClick(this)
         mUserNameTv.onClick(this)
+        mAddressTv.onClick { this }
+        mSettingTv.onClick(this)
+        mAllOrderTv.onClick { this }
+        mWaitPayOrderTv.onClick { this }
+        mWaitConfirmOrderTv.onClick { this }
+        mCompleteOrderTv.onClick { this }
     }
 
     override fun onClick(v: View) {
         when (v.id) {
             R.id.mUserIconIv, R.id.mUserNameTv -> {
-                if (isLogined()) {
+                afterLogin {
                     startActivity<UserInfoActivity>()
                 }
             }
             R.id.mSettingTv -> {
                 startActivity<SettingActivity>()
+            }
+            R.id.mAddressTv -> {
+                startActivity<ShipAddressActivity>()
+            }
+            R.id.mAllOrderTv -> {
+                afterLogin {
+                    startActivity<OrderActivity>()
+                }
+            }
+            R.id.mWaitPayOrderTv -> {
+                startActivity<OrderActivity>(OrderConstant.KEY_ORDER_STATUS to OrderStatus.ORDER_WAIT_PAY)
+            }
+            R.id.mWaitConfirmOrderTv -> {
+                startActivity<OrderActivity>(OrderConstant.KEY_ORDER_STATUS to OrderStatus.ORDER_WAIT_CONFIRM)
+            }
+            R.id.mCompleteOrderTv -> {
+                startActivity<OrderActivity>(OrderConstant.KEY_ORDER_STATUS to OrderStatus.ORDER_COMPLETED)
             }
         }
     }
