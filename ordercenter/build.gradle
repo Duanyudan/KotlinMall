@@ -41,6 +41,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
     implementation project(':provider')
     implementation project(':baselibrary')
+    implementation project(':paysdk')
     //Dagger2
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     //ARouter

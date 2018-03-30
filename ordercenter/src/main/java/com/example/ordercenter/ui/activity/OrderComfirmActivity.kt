@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.example.baselibrary.ext.onClick
@@ -21,6 +22,7 @@ import com.kotlin.order.data.protocol.Order
 import com.kotlin.order.event.SelectAddressEvent
 import com.kotlin.order.ui.adapter.OrderGoodsAdapter
 import kotlinx.android.synthetic.main.activity_order_confirm.*
+import kotlinx.android.synthetic.main.layout_order_item.*
 import org.jetbrains.anko.startActivity
 
 /**
@@ -99,7 +101,10 @@ class OrderComfirmActivity : BaseMvpActivity<OrderComfirmPresenter>(), OrderComf
         }
     }
     override fun onSubmitResult(result: String) {
-
+        ARouter.getInstance().build(RouterPath.PaySDK.PATH_PAY)
+                .withInt(ProviderConstant.KEY_ORDER_ID, mCurrentOrder!!.id)
+                .withLong(ProviderConstant.KEY_ORDER_PRICE, mCurrentOrder!!.totalPrice)
+                .navigation()
     }
     override fun onDestroy() {
         super.onDestroy()

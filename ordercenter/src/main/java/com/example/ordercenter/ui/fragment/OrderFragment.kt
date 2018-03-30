@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bigkoo.alertview.AlertView
 import com.bigkoo.alertview.OnItemClickListener
 import com.example.baselibrary.ext.startLoading
@@ -16,15 +17,14 @@ import com.example.ordercenter.presenter.OrderListPresenter
 import com.example.ordercenter.presenter.view.OrderListView
 import com.example.ordercenter.ui.activity.OrderDetailActivity
 import com.example.provider.common.ProviderConstant
+import com.example.provider.router.RouterPath
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.order.common.OrderConstant
 import com.kotlin.order.data.protocol.Order
-import com.kotlin.order.data.protocol.ShipAddress
 import com.kotlin.order.ui.adapter.OrderAdapter
 import kotlinx.android.synthetic.main.fragment_order.*
 import org.jetbrains.anko.support.v4.startActivity
-import org.jetbrains.anko.support.v4.startService
 
 /**
  * Created by user on 2018/3/29.
@@ -48,9 +48,12 @@ class OrderFragment : BaseMvpFragment<OrderListPresenter>(), OrderListView {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        loadData()
     }
 
+    override fun onStart() {
+        super.onStart()
+        loadData()
+    }
     private fun initView() {
         mOrderRv.layoutManager = LinearLayoutManager(activity)
         mAdapter = OrderAdapter(activity)
@@ -59,10 +62,13 @@ class OrderFragment : BaseMvpFragment<OrderListPresenter>(), OrderListView {
             override fun onOptClick(optType: Int, order: Order) {
                 when (optType) {
                     OrderConstant.OPT_ORDER_PAY -> {
-
+                        ARouter.getInstance().build(RouterPath.PaySDK.PATH_PAY)
+                                .withInt(ProviderConstant.KEY_ORDER_ID, order.id)
+                                .withLong(ProviderConstant.KEY_ORDER_PRICE, order.totalPrice)
+                                .navigation()
                     }
                     OrderConstant.OPT_ORDER_CANCEL -> {
-                 showDeleteAlert(order)
+                        showDeleteAlert(order)
                     }
                     OrderConstant.OPT_ORDER_CONFIRM -> {
                         mPresenter.confirmOrder(order.id)
@@ -70,9 +76,9 @@ class OrderFragment : BaseMvpFragment<OrderListPresenter>(), OrderListView {
                 }
             }
         }
-        mAdapter.setOnItemClickListener(object :BaseRecyclerViewAdapter.OnItemClickListener<Order>{
+        mAdapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<Order> {
             override fun onItemClick(item: Order, position: Int) {
-               startActivity<OrderDetailActivity>(ProviderConstant.KEY_ORDER_ID to item.id)
+                startActivity<OrderDetailActivity>(ProviderConstant.KEY_ORDER_ID to item.id)
             }
 
         })
@@ -83,17 +89,19 @@ class OrderFragment : BaseMvpFragment<OrderListPresenter>(), OrderListView {
         mPresenter.getOrderList(arguments.getInt(OrderConstant.KEY_ORDER_STATUS, -1))
 
     }
-    fun showDeleteAlert(order:Order) {
+
+    fun showDeleteAlert(order: Order) {
         AlertView("取消订单", "确定取消？", "取消", null, arrayOf("确定"),
                 activity, AlertView.Style.Alert,
                 object : OnItemClickListener {
                     override fun onItemClick(o: Any?, position: Int) {
-                        if (position==0){
+                        if (position == 0) {
                             mPresenter.cancelOrder(order.id)
                         }
                     }
                 }).show()
     }
+
     override fun onGetOrderListResult(result: MutableList<Order>?) {
         if (result != null && result.size > 0) {
             mAdapter.setData(result)
